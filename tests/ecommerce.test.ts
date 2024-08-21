@@ -6,7 +6,6 @@ import {
   clearCart,
 } from "../src/ecommerce";
 
-let cart = {};
 describe("E-commerce System", () => {
   beforeEach(() => {
     addProduct("Soap", 100, 10);
@@ -19,5 +18,16 @@ describe("E-commerce System", () => {
     addToCart("Shampoo", 2);
     const sum = calculateTotal();
     expect(sum).toBe(600);
+  });
+
+  it("should add items to cart", () => {
+    // arrange
+    let cart = {};
+
+    // act
+    cart = addToCart("Soap", 2);
+
+    // assert
+    expect(cart["Soap"]).toBe(2);
   });
 });
