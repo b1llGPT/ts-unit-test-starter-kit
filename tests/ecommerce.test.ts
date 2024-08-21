@@ -4,6 +4,7 @@ import {
   addToCart,
   calculateTotal,
   clearCart,
+  applyShippingDiscount,
 } from "../src/ecommerce";
 
 describe("E-commerce System", () => {
@@ -29,5 +30,21 @@ describe("E-commerce System", () => {
 
     // assert
     expect(cart["Soap"]).toBe(2);
+  });
+
+  it("Should apply shipping discount above threshold", () => {
+    addToCart("Soap", 2);
+    addToCart("Shampoo", 2);
+    var sum = calculateTotal();
+    sum = applyShippingDiscount(sum)
+    expect(sum).toBe(590);
+  });
+
+  it("Should not apply shipping discount below threshold", () => {
+    addToCart("Soap", 1);
+    addToCart("Shampoo", 1);
+    var sum = calculateTotal();
+    sum = applyShippingDiscount(sum)
+    expect(sum).toBe(300);
   });
 });
